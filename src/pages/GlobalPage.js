@@ -80,7 +80,7 @@ function GlobalPage() {
                   <AutoColumn gap="36px">
                     <AutoColumn gap="20px">
                       <RowBetween>
-                        <TYPE.main>Volume (24hrs)</TYPE.main>
+                        <TYPE.main>Volume (All-Time)</TYPE.main>
                         <div />
                       </RowBetween>
                       <RowBetween align="flex-end">
