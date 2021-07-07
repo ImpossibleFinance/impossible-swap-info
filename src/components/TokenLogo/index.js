@@ -70,6 +70,24 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
     )
   }
 
+  // For -> IF logo
+  if (address?.toLowerCase() === '0xb0e1fc65c1a741b4662b813eb787d369b8614af1') {
+    return (
+      <Inline>
+        <Image {...rest} alt={''} src={require('../../assets/favicon.ico')} size={size} />
+      </Inline>
+    )
+  }
+
+  // For -> STAX logo
+  if (address?.toLowerCase() === '0x0da6ed8b13214ff28e9ca979dd37439e8a88f6c4') {
+    return (
+      <Inline>
+        <Image {...rest} alt={''} src={require('../../assets/stax-logo.svg')} size={size} />
+      </Inline>
+    )
+  }
+
   const path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/${isAddress(
     address
   )}/logo.png`
