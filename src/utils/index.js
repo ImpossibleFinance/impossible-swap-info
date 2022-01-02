@@ -98,7 +98,7 @@ export const toWeeklyDate = (date) => {
 }
 
 export function getTimestampsForChanges() {
-  const utcCurrentTime = dayjs.unix(1614772800)
+  const utcCurrentTime = dayjs()
   const t1 = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
   const t2 = utcCurrentTime.subtract(2, 'day').startOf('minute').unix()
   const tWeek = utcCurrentTime.subtract(1, 'week').startOf('minute').unix()
@@ -148,6 +148,7 @@ export async function getBlockFromTimestamp(timestamp) {
     },
     fetchPolicy: 'cache-first',
   })
+  console.log("getBlockFromTimestamp result", result)
   return result?.data?.blocks?.[0]?.number
 }
 
@@ -209,7 +210,7 @@ export async function getLiquidityTokenBalanceOvertime(account, timestamps) {
  */
 export async function getShareValueOverTime(pairAddress, timestamps) {
   if (!timestamps) {
-    const utcCurrentTime = dayjs.unix(1614772800)
+    const utcCurrentTime = dayjs()
     const utcSevenDaysBack = utcCurrentTime.subtract(8, 'day').unix()
     timestamps = getTimestampRange(utcSevenDaysBack, 86400, 7)
   }
@@ -235,24 +236,24 @@ export async function getShareValueOverTime(pairAddress, timestamps) {
         reserve0: result.data[row].reserve0,
         reserve1: result.data[row].reserve1,
         reserveUSD: result.data[row].reserveUSD,
-        token0DerivedETH: result.data[row].token0.derivedETH,
-        token1DerivedETH: result.data[row].token1.derivedETH,
+        token0DerivedBNB: result.data[row].token0.derivedBNB,
+        token1DerivedBNB: result.data[row].token1.derivedBNB,
         roiUsd: values && values[0] ? sharePriceUsd / values[0]['sharePriceUsd'] : 1,
-        ethPrice: 0,
+        bnbPrice: 0,
         token0PriceUSD: 0,
         token1PriceUSD: 0,
       })
     }
   }
 
-  // add eth prices
+  // add bnb prices
   let index = 0
   for (var brow in result?.data) {
     let timestamp = brow.split('b')[1]
     if (timestamp) {
-      values[index].ethPrice = result.data[brow].ethPrice
-      values[index].token0PriceUSD = result.data[brow].ethPrice * values[index].token0DerivedETH
-      values[index].token1PriceUSD = result.data[brow].ethPrice * values[index].token1DerivedETH
+      values[index].bnbPrice = result.data[brow].bnbPrice
+      values[index].token0PriceUSD = result.data[brow].bnbPrice * values[index].token0DerivedBNB
+      values[index].token1PriceUSD = result.data[brow].bnbPrice * values[index].token1DerivedBNB
       index += 1
     }
   }
