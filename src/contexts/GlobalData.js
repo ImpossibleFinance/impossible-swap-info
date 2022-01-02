@@ -291,7 +291,7 @@ async function getGlobalData(bnbPrice, oldBnbPrice) {
       data.txnChange = txnChange
     }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 
   return data
