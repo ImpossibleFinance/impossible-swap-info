@@ -50,8 +50,6 @@ const GlobalChart = ({ display }) => {
           let item = currentData[key]
           if (item.date > utcStartTime) {
             return item
-          } else {
-            return
           }
         })
         .filter((item) => {
