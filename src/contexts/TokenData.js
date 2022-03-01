@@ -194,15 +194,10 @@ export default function Provider({ children }) {
 
 const getTopTokens = async (bnbPrice, bnbPriceOld) => {
   const utcCurrentTime = dayjs()
-  console.log("utcCurrentTime", utcCurrentTime)
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
-  console.log("utcOneDayBack", utcOneDayBack)
   const utcTwoDaysBack = utcCurrentTime.subtract(2, 'day').unix()
-  console.log("utcTwoDaysBack", utcTwoDaysBack)
   let oneDayBlock = await getBlockFromTimestamp(utcOneDayBack)
   let twoDayBlock = await getBlockFromTimestamp(utcTwoDaysBack)
-  console.log("oneDayBlock", oneDayBlock)
-  console.log("twoDayBlock", twoDayBlock)
 
   try {
   
@@ -215,13 +210,11 @@ const getTopTokens = async (bnbPrice, bnbPriceOld) => {
       query: TOKENS_DYNAMIC(oneDayBlock),
       fetchPolicy: 'cache-first',
     })
-    console.log("oneDayResult", oneDayResult)
 
     let twoDayResult = await client.query({
       query: TOKENS_DYNAMIC(twoDayBlock),
       fetchPolicy: 'cache-first',
     })
-    console.log("twoDayResult", twoDayResult)
 
     let oneDayData = oneDayResult?.data?.tokens.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
