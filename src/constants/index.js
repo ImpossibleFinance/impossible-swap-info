@@ -7,7 +7,7 @@ export const timeframeOptions = {
   MONTH: '1 month',
   // THREE_MONTHS: '3 months',
   // YEAR: '1 year',
-  ALL_TIME: 'All time',
+  ALL_TIME: '(24 hours)',
 }
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
