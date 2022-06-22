@@ -233,9 +233,7 @@ function PairPage({ pairAddress, history }) {
               >
                 <RowFixed style={{ flexWrap: 'wrap', minWidth: '100px' }}>
                   <RowFixed>
-                    {token0 && token1 && (
-                      <DoubleTokenLogo a0={token0?.id || ''} a1={token1?.id || ''} size={32} margin={true} />
-                    )}{' '}
+                    {token0 && token1 && <DoubleTokenLogo a0={token0} a1={token1} size={32} margin={true} />}{' '}
                     <TYPE.main fontSize={below1080 ? '1.5rem' : '2rem'} style={{ margin: '0 1rem' }}>
                       {token0 && token1 ? (
                         <>
