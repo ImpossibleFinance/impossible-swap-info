@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { isAddress } from '../../utils/index.js'
-import PlaceHolder from '../../assets/placeholder.png'
+import PlaceHolder from '../../assets/placeholder.svg'
 import EthereumLogo from '../../assets/eth.png'
 
 const BAD_IMAGES = {}
@@ -31,9 +31,9 @@ const StyledEthereumLogo = styled.div`
   }
 `
 
-export default function TokenLogo({ address, header = false, size = '24px', ...rest }) {
+export default function TokenLogo({ address, symbol, header = false, size = '24px', ...rest }) {
   const [error, setError] = useState(false)
-
+  const [, refresh] = useState(0)
   useEffect(() => {
     setError(false)
   }, [address])
@@ -88,20 +88,25 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
     )
   }
 
-  const path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/${isAddress(
-    address
-  )}/logo.png`
+  const paths = [
+    `https://app.impossible.finance/images/tokens/${symbol}.png`,
+    `https://assets.trustwalletapp.com/blockchains/smartchain/assets/${isAddress(address)}/logo.png`,
+  ]
 
+  const src = paths.find((s) => !BAD_IMAGES[s])
+  if (!src) {
+    setError(true)
+  }
   return (
     <Inline>
       <Image
         {...rest}
         alt={''}
-        src={path}
+        src={src}
         size={size}
         onError={(event) => {
-          BAD_IMAGES[address] = true
-          setError(true)
+          if (src) BAD_IMAGES[src] = true
+          refresh((i) => i + 1)
           event.preventDefault()
         }}
       />
